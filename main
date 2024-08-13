@@ -1,0 +1,81 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Criação da GUI de carregamento
+local loadingGui = Instance.new("ScreenGui")
+loadingGui.Name = "LoadingGui"
+loadingGui.Parent = playerGui
+
+-- Criação do Frame (janela de carregamento)
+local frame = Instance.new("Frame")
+frame.Name = "LoadingFrame"
+frame.Size = UDim2.new(0, 300, 0, 100) -- Ajuste o tamanho conforme necessário
+frame.Position = UDim2.new(0.5, -150, 0.5, -50) -- Ajuste a posição para o centro da tela
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta
+frame.BackgroundTransparency = 0
+frame.BorderSizePixel = 0
+
+-- Borda arredondada
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 15) -- Ajuste o raio dos cantos conforme necessário
+uiCorner.Parent = frame
+
+frame.Parent = loadingGui
+
+-- Adiciona a imagem
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Name = "LoadingImage"
+imageLabel.Size = UDim2.new(0, 50, 0, 50) -- Ajuste o tamanho conforme necessário
+imageLabel.Position = UDim2.new(0, 10, 0.5, -25) -- Ajuste a posição conforme necessário
+imageLabel.Image = "rbxassetid://8834748103"
+imageLabel.BackgroundTransparency = 1
+imageLabel.Parent = frame
+
+-- Adiciona o texto
+local textLabel = Instance.new("TextLabel")
+textLabel.Name = "LoadingText"
+textLabel.Size = UDim2.new(1, -60, 0.3, 0) -- Ajuste o tamanho para deixar espaço para a barra de carregamento
+textLabel.Position = UDim2.new(0, 60, 0.3, 0) -- Ajuste a posição para centralizar verticalmente
+textLabel.Text = "Nightscript Studios"
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- Cor do texto
+textLabel.TextScaled = true
+textLabel.BackgroundTransparency = 1
+textLabel.TextXAlignment = Enum.TextXAlignment.Left -- Alinhamento do texto
+textLabel.TextYAlignment = Enum.TextYAlignment.Center -- Alinhamento vertical do texto
+textLabel.Font = Enum.Font.Gotham -- Define a fonte como Gotham
+textLabel.Parent = frame
+
+-- Criação da barra de carregamento
+local progressBar = Instance.new("Frame")
+progressBar.Name = "ProgressBar"
+progressBar.Size = UDim2.new(0.8, 0, 0.2, 0) -- Ajuste o tamanho conforme necessário
+progressBar.Position = UDim2.new(0.1, 0, 0.7, 0) -- Ajuste a posição conforme necessário
+progressBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Cor da barra
+progressBar.BackgroundTransparency = 0
+progressBar.BorderSizePixel = 0
+progressBar.Parent = frame
+
+-- Barra de progresso dentro da barra de carregamento
+local progressFill = Instance.new("Frame")
+progressFill.Name = "ProgressFill"
+progressFill.Size = UDim2.new(0, 0, 1, 0) -- Inicialmente vazio, será preenchido
+progressFill.Position = UDim2.new(0, 0, 0, 0)
+progressFill.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Cor da parte preenchida
+progressFill.BackgroundTransparency = 0
+progressFill.BorderSizePixel = 0
+progressFill.Parent = progressBar
+
+-- Atualiza a barra de carregamento
+local function updateProgressBar(percent)
+    progressFill.Size = UDim2.new(percent, 0, 1, 0)
+end
+
+-- Simulação de carregamento (atualize a barra de progresso conforme necessário)
+for i = 0, 1, 0.01 do
+    wait(0.04) -- Ajuste a velocidade do carregamento
+    updateProgressBar(i)
+end
+
+-- Remove a tela de carregamento após 4 segundos
+wait(4) -- Tempo de espera em segundos
+loadingGui:Destroy()
